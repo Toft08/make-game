@@ -9,8 +9,11 @@ for (let i = 0; i < 200; i++) {
 
 const rows = 20;
 const cols = 10;
+
+// initialize the game board as 2D array filled with 0 (empty spaces)
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 
+// define the tetromino shapes using 2D arrays
 const tetrominos = {
     T: [[0, 1, 0], [1, 1, 1]],
     I: [[1, 1, 1, 1]],
@@ -61,7 +64,7 @@ function drawBoard(tempBoard) {
     }
 }
 
-
+// move the piece down by one row
 function moveDown() {
     if (canMove(currentPiece.row + 1, currentPiece.col)) {
         currentPiece.row++;
@@ -71,7 +74,7 @@ function moveDown() {
     }
     updateBoard();
 }
-
+// check if the piece can move to new position
 function canMove(nextRow, nextCol) {
     let shape = currentPiece.shape;
     for (let r = 0; r < shape.length; r++) {
@@ -80,14 +83,14 @@ function canMove(nextRow, nextCol) {
                 let newR = nextRow + r;
                 let newC = nextCol + c;
                 if (newR >= rows || newC < 0 || newC >= cols || board[newR][newC] === 1) {
-                    return false;
+                    return false; // collision detected
                 }
             }
         }
     }
     return true;
 }
-
+// locks the piece at the bottom of the board once it reaches the bottom
 function placePiece() {
     let shape = currentPiece.shape;
     for (let r = 0; r < shape.length; r++) {
@@ -98,7 +101,7 @@ function placePiece() {
         }
     }
 }
-
+// spawn a new piece at the top
 function spawnNewPiece() {
     currentPiece = {
         shape: tetrominos.T,
@@ -106,7 +109,7 @@ function spawnNewPiece() {
         col: 3
     };
 }
-
+ // keyboard controls
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" && canMove(currentPiece.row, currentPiece.col - 1)) {
         currentPiece.col--;
@@ -120,7 +123,7 @@ document.addEventListener("keydown", (event) => {
 
 function startGame() {
     updateBoard();
-    setInterval(moveDown, 1000);
+    setInterval(moveDown, 1000); // move piece down with given interval
 }
 
 startGame();
