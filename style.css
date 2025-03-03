@@ -1,14 +1,25 @@
-#gameBoard {
-    display: grid;
-    grid-template-columns: repeat(10, 30px); /* 10 columns, each 30px wide */
-    grid-template-rows: repeat(20, 30px); /* 20 rows, each 30px high */
-    gap: 1px; /* Small gap between cells */
-    background-color: black;
-    width: 302px; /* Extra 2px for the gaps */
-    height: 602px;
-    border: 2px solid white;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: 'Press Start 2P', sans-serif;
 }
 
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); /* 10 columns */
+    grid-template-rows: repeat(20, 30px); /* 20 rows */
+    gap: 1px;
+    background-color: black;
+    margin: auto; /* Centers it horizontally */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#tetrisTitle {
+    text-align: center;
+}
 .cell {
     width: 30px;
     height: 30px;
