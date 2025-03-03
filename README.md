@@ -73,3 +73,19 @@ In the developer tools you can also find a Paint Flashing option that will highl
     * Developer Tools
         * Firefox
         * Chrome
+
+# File structure
+    tetris/
+    ├── index.html          # Main HTML file
+    ├── styles/
+    │   └── main.css        # Main styling
+    ├── scripts/
+    │   ├── game.js         # Core game logic
+    │   ├── tetromino.js    # Tetromino pieces logic
+    │   ├── board.js        # Game board logic
+    │   ├── input.js        # Keyboard input handling
+    │   ├── renderer.js     # DOM rendering logic
+    │   ├── score.js        # Score and stats tracking
+    │   └── utils.js        # Helper functions
+    └── assets/
+        └── sounds/         # Game sounds (optional)

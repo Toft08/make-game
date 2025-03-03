@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="tetris-container" id="tetris-container">
+            <div class="pause-menu" id="pause-menu">
+                <h2>PAUSED</h2>
+                <button id="continue-btn">Continue</button>
+                <button id="restart-btn">Restart</button>
+            </div>
+            <div class="game-over" id="game-over">
+                <h2>GAME OVER</h2>
+                <p>Your score: <span id="final-score">0</span></p>
+                <button id="restart-btn-game-over">Restart</button>
+            </div>
+        </div>
+        <div class="stats-container">
+            <div class="stat-box">
+                <h3>Time</h3>
+                <p id="time">00:00</p>
+            </div>
+            <div class="stat-box">
+                <h3>Score</h3>
+                <p id="score">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Level</h3>
+                <p id="level">1</p>
+            </div>
+            <div class="stat-box">
+                <h3>Lines</h3>
+                <p id="lines">0</p>
+            </div>
+            <div class="next-piece" id="next-piece-container">
+                <!-- Next piece will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/tetromino.js"></script>
+    <script src="scripts/renderer.js"></script>
+    <script src="scripts/board.js"></script>
+    <script src="scripts/score.js"></script>
+    <script src="scripts/input.js"></script>
+    <script src="scripts/game.js"></script>
+</body>
+</html>
