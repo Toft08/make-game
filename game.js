@@ -1,6 +1,8 @@
 const gameBoard = document.getElementById("gameBoard");
 const pauseMenu = document.getElementById('pause-menu');
 const gameOverElement = document.getElementById('game-over');
+const continueBtn = document.getElementById('continue-btn');
+const restartBtn = document.getElementById('restart-btn');
 
 let isPaused = false;
 let isGameOver = false;
@@ -70,7 +72,6 @@ function updateBoard() {
             }
         }
     }
-    console.log("Update board:", tempBoard)
     drawBoard(tempBoard);
 }
 
@@ -319,8 +320,8 @@ document.addEventListener('keyup', (e) => {
 
 // Menu button event listeners
 continueBtn.addEventListener('click', togglePause);
-restartBtn.addEventListener('click', initGame);
-restartBtnGameOver.addEventListener('click', initGame);
+restartBtn.addEventListener('click', resetGame);
+// restartBtnGameOver.addEventListener('click', initGame);
 
 function startGame() {
     isPaused = false; // Makes sure the start unpaused
@@ -330,4 +331,3 @@ function startGame() {
 
 startGame();
 
-// initGame();
