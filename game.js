@@ -19,17 +19,19 @@ let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 
 // define the tetromino shapes using 2D arrays
 const tetrominos = {
-    T: [[0, 1, 0], [1, 1, 1]],
-    I: [[1, 1, 1, 1]],
-    O: [[1, 1], [1, 1]],
-    L: [[1, 0], [1, 0], [1, 1]],
-    J: [[0, 1], [0, 1], [1, 1]],
-    S: [[0, 1, 1], [1, 1, 0]],
-    Z: [[1, 1, 0], [0, 1, 1]]
+    T: { shape: [[0, 1, 0], [1, 1, 1]], type: "tetromino-t" },
+    I: { shape: [[1, 1, 1, 1]], type: "tetromino-i" },
+    O: { shape: [[1, 1], [1, 1]], type: "tetromino-o" },
+    L: { shape: [[1, 0], [1, 0], [1, 1]], type: "tetromino-l" },
+    J: { shape: [[0, 1], [0, 1], [1, 1]], type: "tetromino-j" },
+    S: { shape: [[0, 1, 1], [1, 1, 0]], type: "tetromino-s" },
+    Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
+
 let currentPiece = {
-    shape: tetrominos.T,
+    shape: tetrominos.T.shape,
+    type: tetrominos.T.type,
     row: 0,
     col: 3
 };
@@ -56,13 +58,20 @@ function updateBoard() {
 
 function drawBoard(tempBoard) {
     const cells = document.querySelectorAll(".cell");
+
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             let index = r * cols + c;
-            if (tempBoard[r][c] === 1) {
-                cells[index].style.backgroundColor = "red";  // Tetrimino color
-            } else {
-                cells[index].style.backgroundColor = "#222"; // Empty cell
+            let cell = cells[index];
+
+            cell.className = "cell"; // reset class first
+
+            if (tempBoard[r][c] !== 0) {
+                if (typeof tempBoard[r][c] === 'string') {
+                    cell.classList.add(tempBoard[r][c]);
+                } else {
+                    cell.classList.add(currentPiece.type); // add class based on tetromino type
+                }
             }
         }
     }
@@ -86,7 +95,7 @@ function canMove(nextRow, nextCol) {
             if (shape[r][c] === 1) {
                 let newR = nextRow + r;
                 let newC = nextCol + c;
-                if (newR >= rows || newC < 0 || newC >= cols || board[newR][newC] === 1) {
+                if (newR >= rows || newC < 0 || newC >= cols || board[newR][newC] !== 0) {
                     return false; // collision detected
                 }
             }
@@ -100,7 +109,7 @@ function placePiece() {
     for (let r = 0; r < shape.length; r++) {
         for (let c = 0; c < shape[r].length; c++) {
             if (shape[r][c] === 1) {
-                board[currentPiece.row + r][currentPiece.col + c] = 1; // Store placed piece permanently
+                board[currentPiece.row + r][currentPiece.col + c] = currentPiece.type; // Store placed piece permanently
             }
         }
     }
@@ -110,7 +119,8 @@ function spawnNewPiece() {
     const keys = Object.keys(tetrominos);
     const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
     currentPiece = {
-        shape: tetrominos[randomKey], // assing random shape
+        shape: tetrominos[randomKey].shape, // assing random shape
+        type: tetrominos[randomKey].type, // store type for CSS
         row: 0,
         col: 3
     };
