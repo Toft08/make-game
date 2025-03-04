@@ -103,8 +103,10 @@ function placePiece() {
 }
 // spawn a new piece at the top
 function spawnNewPiece() {
+    const keys = Object.keys(tetrominos);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
     currentPiece = {
-        shape: tetrominos.T,
+        shape: tetrominos[randomKey], // assing random shape
         row: 0,
         col: 3
     };
