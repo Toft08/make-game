@@ -7,6 +7,10 @@ for (let i = 0; i < 200; i++) {
     gameBoard.appendChild(cell);
 }
 
+let lastTime = 0;
+const dropInterval = 1000;
+let dropCounter = 0;
+
 const rows = 20;
 const cols = 10;
 
@@ -123,9 +127,21 @@ document.addEventListener("keydown", (event) => {
     updateBoard();
 });
 
+function gameLoop(timestamp) {
+    let deltaTime = timestamp - lastTime; // difference since last frame
+    lastTime = timestamp;
+    dropCounter += deltaTime;
+
+    if (dropCounter > dropInterval) {
+        moveDown();
+        dropCounter = 0;
+    }
+    requestAnimationFrame(gameLoop); //continue loop
+}
+
 function startGame() {
     updateBoard();
-    setInterval(moveDown, 1000); // move piece down with given interval
+    requestAnimationFrame(gameLoop); // start loop
 }
 
 startGame();
