@@ -10,6 +10,7 @@ for (let i = 0; i < 200; i++) {
 let lastTime = 0;
 const dropInterval = 1000;
 let dropCounter = 0;
+let totalClearedRows = 0;
 
 const rows = 20;
 const cols = 10;
@@ -66,8 +67,22 @@ function updateBoard() {
             }
         }
     }
-    console.log("Update board:", tempBoard)
     drawBoard(tempBoard);
+}
+
+function clearRows() {
+    let newBoard = board.filter(row => row.some(cell => cell === 0));
+    let rowsCleared = rows - newBoard.length; // count removed rows
+
+    if (rowsCleared > 0) {
+        totalClearedRows += rowsCleared; // update total cleared rows
+        updateScoreboard(); // update the scoreboard
+    }
+
+    while (newBoard.length < rows) {
+        newBoard.unshift(new Array(cols).fill(0)); // add empty rows at the top
+    }
+    board = newBoard;
 }
 
 function getGhostPosition() {
@@ -175,6 +190,7 @@ function placePiece() {
             }
         }
     }
+    clearRows();
 }
 // spawn a new piece at the top
 function spawnNewPiece() {
@@ -221,6 +237,9 @@ function hardDrop() {
     updateBoard();
 }
 
+function updateScoreboard() {
+    document.getElementById("score").textContent = totalClearedRows;
+}
 
 function gameLoop(timestamp) {
     let deltaTime = timestamp - lastTime; // difference since last frame
