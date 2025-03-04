@@ -29,6 +29,7 @@ const tetrominos = {
     Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
+let nextPiece = getRandomPiece();
 
 let currentPiece = {
     shape: tetrominos.T.shape,
@@ -194,15 +195,47 @@ function placePiece() {
 }
 // spawn a new piece at the top
 function spawnNewPiece() {
+    currentPiece = nextPiece;
+    nextPiece = getRandomPiece();
+    updateNextPieceDisplay();
+}
+
+function getRandomPiece() {
     const keys = Object.keys(tetrominos);
     const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
-    currentPiece = {
-        shape: tetrominos[randomKey].shape, // assing random shape
+    return {
+        shape: tetrominos[randomKey].shape.map(row => [...row]), // assing random shape
         type: tetrominos[randomKey].type, // store type for CSS
         row: 0,
         col: 3
     };
 }
+function updateNextPieceDisplay() {
+    const nextPieceElement = document.getElementById("nextPieceGrid");
+    if (!nextPieceElement) {
+        console.error("Error: Element with id 'nextPieceGrid' not found!");
+        return;
+    }
+    // clear previous next piece display
+    nextPieceElement.innerHTML = "";
+    
+    // get the next shape
+    const piece = nextPiece.shape;
+
+    // creating 4x4 grid to display next piece
+    piece.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+            if (cell) {
+                const block = document.createElement("div");
+                block.classList.add("block", nextPiece.type);
+                block.style.gridRowStart = rowIndex + 1;
+                block.style.gridColumnStart = colIndex + 1;
+                nextPieceElement.appendChild(block);
+            }
+        });
+    });
+}
+ 
  // keyboard controls
 document.addEventListener("keydown", (event) => {
    switch (event.key) {
