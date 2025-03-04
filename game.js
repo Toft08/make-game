@@ -103,6 +103,42 @@ function canMove(nextRow, nextCol) {
     }
     return true;
 }
+// prevents rotating into walls or other pieces
+function canRotate(newShape, row, col) {
+    for (let r = 0; r < newShape.length; r++) {
+        for (let c = 0; c < newShape[r].length; c++) {
+            if (newShape[r][c] === 1) {
+                let newR = row + r;
+                let newC = col + c;
+                
+                if (newR < 0 || newR >= rows || newC < 0 || newC >= cols) {
+                    return false; // collision detected
+                }
+                if (board[newR][newC] !== 0) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+function rotateMatrix(matrix) {
+    // Transpose the matrix (swap rows and columns)
+    let transposed = matrix[0].map((_, colIndex) => matrix.map(row => row[colIndex]));
+
+    // Reverse each row to complete the 90° rotation
+    return transposed.map(row => row.reverse());
+}
+
+function rotatePiece() {
+    let rotatedShape = rotateMatrix(currentPiece.shape);
+
+    if (canRotate(rotatedShape, currentPiece.row, currentPiece.col)) {
+        currentPiece.shape = rotatedShape; // apply rotation if valid
+    }
+}
+
 // locks the piece at the bottom of the board once it reaches the bottom
 function placePiece() {
     let shape = currentPiece.shape;
@@ -127,15 +163,38 @@ function spawnNewPiece() {
 }
  // keyboard controls
 document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft" && canMove(currentPiece.row, currentPiece.col - 1)) {
-        currentPiece.col--;
-    } else if (event.key === "ArrowRight" && canMove(currentPiece.row, currentPiece.col + 1)) {
-        currentPiece.col++;
-    } else if (event.key === "ArrowDown") {
+   switch (event.key) {
+    case "ArrowLeft":
+        if (canMove(currentPiece.row, currentPiece.col -1)) {
+            currentPiece.col--;
+        }
+        break;
+    case "ArrowRight":
+        if (canMove(currentPiece.row, currentPiece.col +1)) {
+            currentPiece.col++;
+        }
+        break;
+    case "ArrowDown":
         moveDown();
-    }
+        break;
+    case "ArrowUp":
+        rotatePiece();
+        break;
+    case " ":
+        hardDrop();
+        break;
+   }
     updateBoard();
 });
+function hardDrop() {
+    while (canMove(currentPiece.row + 1, currentPiece.col)) {
+        currentPiece.row++; // Move down until it collides
+    }
+    placePiece(); // Lock piece in place
+    spawnNewPiece(); // Generate new piece
+    updateBoard();
+}
+
 
 function gameLoop(timestamp) {
     let deltaTime = timestamp - lastTime; // difference since last frame
