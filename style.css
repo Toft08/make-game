@@ -35,3 +35,8 @@ body {
 .tetromino-j { background-color: blue; }
 .tetromino-s { background-color: green; }
 .tetromino-z { background-color: red; }
+
+.ghost-piece {
+    border: 2px solid cyan;
+    opacity: 0.3;
+}

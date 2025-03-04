@@ -39,21 +39,44 @@ let currentPiece = {
 function updateBoard() {
     // Clear only the temporary moving piece positions
     let tempBoard = board.map(row => [...row]);
-
     let shape = currentPiece.shape;
+    let ghostRow = getGhostPosition();
+
+    // Draw ghost piece first
+    for (let r = 0; r < shape.length; r++) {
+        for (let c = 0; c < shape[r].length; c++) {
+            if (shape[r][c] === 1) {
+                let newR = ghostRow + r;
+                let newC = currentPiece.col + c;
+                if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
+                    tempBoard[newR][newC] = "ghost";
+                }
+            }
+        }
+    }
+    // Drat active falling piece
     for (let r = 0; r < shape.length; r++) {
         for (let c = 0; c < shape[r].length; c++) {
             if (shape[r][c] === 1) {
                 let newR = currentPiece.row + r;
                 let newC = currentPiece.col + c;
                 if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
-                    tempBoard[newR][newC] = 1; // Only update the moving piece
+                    tempBoard[newR][newC] = currentPiece.type; // Only update the moving piece
                 }
             }
         }
     }
     console.log("Update board:", tempBoard)
     drawBoard(tempBoard);
+}
+
+function getGhostPosition() {
+    let ghostRow = currentPiece.row;
+
+    while (canMove(ghostRow + 1, currentPiece.col)) {
+        ghostRow++;
+    }
+    return ghostRow;
 }
 
 function drawBoard(tempBoard) {
@@ -67,7 +90,9 @@ function drawBoard(tempBoard) {
             cell.className = "cell"; // reset class first
 
             if (tempBoard[r][c] !== 0) {
-                if (typeof tempBoard[r][c] === 'string') {
+                if (tempBoard[r][c] === "ghost") {
+                    cell.classList.add("ghost-piece")
+                } else if (typeof tempBoard[r][c] === 'string') {
                     cell.classList.add(tempBoard[r][c]);
                 } else {
                     cell.classList.add(currentPiece.type); // add class based on tetromino type
@@ -122,6 +147,7 @@ function canRotate(newShape, row, col) {
     }
     return true;
 }
+
 
 function rotateMatrix(matrix) {
     // Transpose the matrix (swap rows and columns)
