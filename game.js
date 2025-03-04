@@ -3,6 +3,8 @@ const pauseMenu = document.getElementById('pause-menu');
 const gameOverElement = document.getElementById('game-over');
 const continueBtn = document.getElementById('continue-btn');
 const restartBtn = document.getElementById('restart-btn');
+const finalScoreElement = document.getElementById('final-score');
+const restartBtnGameOver = document.getElementById('restart-btn-game-over');
 
 let isPaused = false;
 let isGameOver = false;
@@ -36,14 +38,14 @@ const tetrominos = {
     Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
-let nextPiece = getRandomPiece();
-
 let currentPiece = {
     shape: tetrominos.T.shape,
     type: tetrominos.T.type,
     row: 0,
     col: 3
 };
+
+let nextPiece = getRandomPiece();
 
 function updateBoard() {
     // Clear only the temporary moving piece positions
@@ -110,6 +112,7 @@ function resetGame() {
     // Restart the game loop
     updateBoard();
     requestAnimationFrame(gameLoop);
+}
 
 function clearRows() {
     let newBoard = board.filter(row => row.some(cell => cell === 0));
@@ -242,6 +245,13 @@ function spawnNewPiece() {
 }
 
 function getRandomPiece() {
+    // Check for game over (if new piece can't be placed)
+    if (!canMove(currentPiece.row, currentPiece.col)) {
+        isGameOver = true;
+        gameOverElement.style.display = 'flex';
+        finalScoreElement.textContent = score;
+    }
+
     const keys = Object.keys(tetrominos);
     const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
     return {
@@ -250,12 +260,7 @@ function getRandomPiece() {
         row: 0,
         col: 3
     };
-        // Check for game over (if new piece can't be placed)
-    if (!canMove(currentPiece.row, currentPiece.col)) {
-        isGameOver = true;
-        gameOverElement.style.display = 'flex';
-        finalScoreElement.textContent = score;
-    }
+
 }
 
 function hardDrop() {
@@ -366,7 +371,6 @@ document.addEventListener("keydown", (event) => {
 
 });
 
-}
 
 function updateScoreboard() {
     document.getElementById("score").textContent = totalClearedRows;
@@ -380,7 +384,7 @@ document.addEventListener('keyup', (e) => {
 // Menu button event listeners
 continueBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
-// restartBtnGameOver.addEventListener('click', initGame);
+restartBtnGameOver.addEventListener('click', resetGame);
 
 function startGame() {
     isPaused = false; // Makes sure the start unpaused
