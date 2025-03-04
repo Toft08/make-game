@@ -20,6 +20,8 @@ for (let i = 0; i < 200; i++) {
     gameBoard.appendChild(cell);
 }
 
+let totalClearedRows = 0;
+
 // initialize the game board as 2D array filled with 0 (empty spaces)
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 
@@ -34,6 +36,7 @@ const tetrominos = {
     Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
+let nextPiece = getRandomPiece();
 
 let currentPiece = {
     shape: tetrominos.T.shape,
@@ -107,6 +110,21 @@ function resetGame() {
     // Restart the game loop
     updateBoard();
     requestAnimationFrame(gameLoop);
+
+function clearRows() {
+    let newBoard = board.filter(row => row.some(cell => cell === 0));
+    let rowsCleared = rows - newBoard.length; // count removed rows
+
+    if (rowsCleared > 0) {
+        totalClearedRows += rowsCleared; // update total cleared rows
+        updateScoreboard(); // update the scoreboard
+    }
+
+    while (newBoard.length < rows) {
+        newBoard.unshift(new Array(cols).fill(0)); // add empty rows at the top
+    }
+    board = newBoard;
+
 }
 
 function getGhostPosition() {
@@ -214,13 +232,20 @@ function placePiece() {
             }
         }
     }
+    clearRows();
 }
 // spawn a new piece at the top
 function spawnNewPiece() {
+    currentPiece = nextPiece;
+    nextPiece = getRandomPiece();
+    updateNextPieceDisplay();
+}
+
+function getRandomPiece() {
     const keys = Object.keys(tetrominos);
     const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
-    currentPiece = {
-        shape: tetrominos[randomKey].shape, // assing random shape
+    return {
+        shape: tetrominos[randomKey].shape.map(row => [...row]), // assing random shape
         type: tetrominos[randomKey].type, // store type for CSS
         row: 0,
         col: 3
@@ -274,6 +299,32 @@ function togglePause() {
     }
 }
 
+function updateNextPieceDisplay() {
+    const nextPieceElement = document.getElementById("nextPieceGrid");
+    if (!nextPieceElement) {
+        console.error("Error: Element with id 'nextPieceGrid' not found!");
+        return;
+    }
+    // clear previous next piece display
+    nextPieceElement.innerHTML = "";
+    
+    // get the next shape
+    const piece = nextPiece.shape;
+
+    // creating 4x4 grid to display next piece
+    piece.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+            if (cell) {
+                const block = document.createElement("div");
+                block.classList.add("block", nextPiece.type);
+                block.style.gridRowStart = rowIndex + 1;
+                block.style.gridColumnStart = colIndex + 1;
+                nextPieceElement.appendChild(block);
+            }
+        });
+    });
+}
+ 
  // keyboard controls
 document.addEventListener("keydown", (event) => {
     if (isGameOver) return; // Prevent inputs if game is over
@@ -312,7 +363,15 @@ document.addEventListener("keydown", (event) => {
         break;
     }
     updateBoard();
+
 });
+
+}
+
+function updateScoreboard() {
+    document.getElementById("score").textContent = totalClearedRows;
+}
+
 
 document.addEventListener('keyup', (e) => {
     keysPressed[e.key] = false;
