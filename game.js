@@ -1,4 +1,17 @@
 const gameBoard = document.getElementById("gameBoard");
+const pauseMenu = document.getElementById('pause-menu');
+const gameOverElement = document.getElementById('game-over');
+const continueBtn = document.getElementById('continue-btn');
+const restartBtn = document.getElementById('restart-btn');
+
+let isPaused = false;
+let isGameOver = false;
+let keysPressed = {};
+let lastTime = 0;
+const dropInterval = 1000;
+let dropCounter = 0;
+const rows = 20;
+const cols = 10;
 
 // Create a 10x20 grid
 for (let i = 0; i < 200; i++) {
@@ -7,13 +20,7 @@ for (let i = 0; i < 200; i++) {
     gameBoard.appendChild(cell);
 }
 
-let lastTime = 0;
-const dropInterval = 1000;
-let dropCounter = 0;
 let totalClearedRows = 0;
-
-const rows = 20;
-const cols = 10;
 
 // initialize the game board as 2D array filled with 0 (empty spaces)
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
@@ -71,6 +78,39 @@ function updateBoard() {
     drawBoard(tempBoard);
 }
 
+function resetGame() {
+    // Reset game state
+    board = Array.from({ length: rows }, () => Array(cols).fill(0));
+    currentPiece = {
+        shape: tetrominos.T.shape,
+        type: tetrominos.T.type,
+        row: 0,
+        col: 3
+    };
+    
+    // Reset game variables
+    isPaused = false;
+    isGameOver = false;
+    score = 0;
+    startTime = performance.now();
+    elapsedTime = 0;
+    dropCounter = 0;
+    lastTime = performance.now();
+    
+    // Hide menus
+    pauseMenu.style.display = 'none';
+    gameOverElement.style.display = 'none';
+    
+    // Clear the board
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+        cell.className = "cell";
+    });
+    
+    // Restart the game loop
+    updateBoard();
+    requestAnimationFrame(gameLoop);
+
 function clearRows() {
     let newBoard = board.filter(row => row.some(cell => cell === 0));
     let rowsCleared = rows - newBoard.length; // count removed rows
@@ -84,6 +124,7 @@ function clearRows() {
         newBoard.unshift(new Array(cols).fill(0)); // add empty rows at the top
     }
     board = newBoard;
+
 }
 
 function getGhostPosition() {
@@ -209,7 +250,55 @@ function getRandomPiece() {
         row: 0,
         col: 3
     };
+        // Check for game over (if new piece can't be placed)
+    if (!canMove(currentPiece.row, currentPiece.col)) {
+        isGameOver = true;
+        gameOverElement.style.display = 'flex';
+        finalScoreElement.textContent = score;
+    }
 }
+
+function hardDrop() {
+    while (canMove(currentPiece.row + 1, currentPiece.col)) {
+        currentPiece.row++; // Move down until it collides
+    }
+    placePiece(); // Lock piece in place
+    spawnNewPiece(); // Generate new piece
+    updateBoard();
+}
+
+
+function gameLoop(timestamp) {
+    if (isPaused || isGameOver) {
+        // requestAnimationFrame(gameLoop);
+        return
+    }
+
+    let deltaTime = timestamp - lastTime; // difference since last frame
+    lastTime = timestamp;
+    dropCounter += deltaTime;
+
+    if (dropCounter > dropInterval) {
+        moveDown();
+        dropCounter = 0;
+    }
+    requestAnimationFrame(gameLoop); //continue loop
+}
+
+function togglePause() {
+    if (isGameOver) return; // Prevent pausing if the game is over
+
+    isPaused = !isPaused;
+
+    if (isPaused) {
+        pauseMenu.style.display = 'flex';
+        // elapsedTime += performance.now() - startTime;
+    } else {
+        pauseMenu.style.display = 'none';
+        requestAnimationFrame(gameLoop);
+    }
+}
+
 function updateNextPieceDisplay() {
     const nextPieceElement = document.getElementById("nextPieceGrid");
     if (!nextPieceElement) {
@@ -238,7 +327,21 @@ function updateNextPieceDisplay() {
  
  // keyboard controls
 document.addEventListener("keydown", (event) => {
-   switch (event.key) {
+    if (isGameOver) return; // Prevent inputs if game is over
+    
+    // Toggle pause with Escape key
+    if (event.key === 'Escape') {
+        togglePause();
+        return;
+    }
+    
+    if (isPaused) return; // Ignore all inputs if paused
+
+    // Track key presses for continuous movement
+    keysPressed[event.key] = true;
+
+    // Handle immediate actions
+    switch (event.key) {
     case "ArrowLeft":
         if (canMove(currentPiece.row, currentPiece.col -1)) {
             currentPiece.col--;
@@ -258,37 +361,32 @@ document.addEventListener("keydown", (event) => {
     case " ":
         hardDrop();
         break;
-   }
-    updateBoard();
-});
-function hardDrop() {
-    while (canMove(currentPiece.row + 1, currentPiece.col)) {
-        currentPiece.row++; // Move down until it collides
     }
-    placePiece(); // Lock piece in place
-    spawnNewPiece(); // Generate new piece
     updateBoard();
+
+});
+
 }
 
 function updateScoreboard() {
     document.getElementById("score").textContent = totalClearedRows;
 }
 
-function gameLoop(timestamp) {
-    let deltaTime = timestamp - lastTime; // difference since last frame
-    lastTime = timestamp;
-    dropCounter += deltaTime;
 
-    if (dropCounter > dropInterval) {
-        moveDown();
-        dropCounter = 0;
-    }
-    requestAnimationFrame(gameLoop); //continue loop
-}
+document.addEventListener('keyup', (e) => {
+    keysPressed[e.key] = false;
+});
+
+// Menu button event listeners
+continueBtn.addEventListener('click', togglePause);
+restartBtn.addEventListener('click', resetGame);
+// restartBtnGameOver.addEventListener('click', initGame);
 
 function startGame() {
+    isPaused = false; // Makes sure the start unpaused
     updateBoard();
     requestAnimationFrame(gameLoop); // start loop
 }
 
 startGame();
+
