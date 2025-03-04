@@ -4,6 +4,11 @@ body {
     font-family: 'Press Start 2P', sans-serif;
 }
 
+/* .game-container {
+    display: flex;
+    position: relative;
+} */
+
 #gameBoard {
     display: grid;
     grid-template-columns: repeat(10, 30px); /* 10 columns */
@@ -39,4 +44,34 @@ body {
 .ghost-piece {
     border: 2px solid cyan;
     opacity: 0.3;
+}
+
+.pause-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.pause-menu button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.pause-menu button:hover {
+    background-color: #555;
 }

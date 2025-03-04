@@ -9,7 +9,20 @@
 </head>
 <body>
     <h1 id="tetrisTitle">TETRIS</h1>
-    <div id="gameBoard"></div>
+    <div class="game-container">
+        <div id="gameBoard"></div>
+        
+        <div class="pause-menu" id="pause-menu">
+            <h2>PAUSED</h2>
+            <button id="continue-btn">Continue</button>
+            <button id="restart-btn">Restart</button>
+        </div>
+        <div class="game-over" id="game-over">
+            <h2>GAME OVER</h2>
+            <p>Your score: <span id="final-score">0</span></p>
+            <button id="restart-btn-game-over">Restart</button>
+        </div>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
