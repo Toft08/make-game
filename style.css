@@ -26,6 +26,11 @@ body {
     background-color: #222; /* Default empty cell color */
     border: 1px solid #111;
 }
+.block {
+    width: 20px;
+    height: 20px;
+}
+
 
 /* Tetromino colors */
 .tetromino-t { background-color: purple; }
@@ -40,3 +45,14 @@ body {
     border: 2px solid cyan;
     opacity: 0.3;
 }
+#nextPieceGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 20px);
+    grid-template-rows: repeat(4, 20px);
+    gap: 2px;
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    padding: 5px;
+}
+
