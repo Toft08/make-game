@@ -7,7 +7,7 @@ const finalScoreElement = document.getElementById('final-score');
 const restartBtnGameOver = document.getElementById('restart-btn-game-over');
 
 gameOverElement.style.display = 'none';
-restartBtn.style.display = 'none';
+// restartBtn.style.display = 'none'; 
 // restartBtnGameOver.style.display = 'none';
 
 let isPaused = false;
