@@ -69,7 +69,7 @@ function updateBoard() {
             }
         }
     }
-    // Drat active falling piece
+    // Draw active falling piece
     for (let r = 0; r < shape.length; r++) {
         for (let c = 0; c < shape[r].length; c++) {
             if (shape[r][c] === 1) {
@@ -87,12 +87,8 @@ function updateBoard() {
 function resetGame() {
     // Reset game state
     board = Array.from({ length: rows }, () => Array(cols).fill(0));
-    currentPiece = {
-        shape: tetrominos.T.shape,
-        type: tetrominos.T.type,
-        row: 0,
-        col: 3
-    };
+
+    currentPiece = getRandomPiece();
     
     // Reset game variables
     isPaused = false;
@@ -101,6 +97,7 @@ function resetGame() {
     startTime = performance.now();
     elapsedTime = 0;
     dropCounter = 0;
+    totalClearedRows = 0;
     lastTime = performance.now();
     
     // Hide menus
@@ -112,6 +109,10 @@ function resetGame() {
     cells.forEach(cell => {
         cell.className = "cell";
     });
+
+    nextPiece = getRandomPiece();
+    updateNextPieceDisplay();
+    updateScoreboard();
     
     // Restart the game loop
     updateBoard();
@@ -262,25 +263,31 @@ function spawnNewPiece() {
     currentPiece = nextPiece;
     nextPiece = getRandomPiece();
     updateNextPieceDisplay();
+    checkGameOver();
 }
 
 function getRandomPiece() {
-    // Check for game over (if new piece can't be placed)
-    if (!canMove(currentPiece.row, currentPiece.col)) {
-        isGameOver = true;
-        gameOverElement.style.display = 'flex';
-        finalScoreElement.textContent = score;
-    }
-
     const keys = Object.keys(tetrominos);
-    const randomKey = keys[Math.floor(Math.random() * keys.length)]; // pick random key
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    
     return {
-        shape: tetrominos[randomKey].shape.map(row => [...row]), // assing random shape
-        type: tetrominos[randomKey].type, // store type for CSS
+        shape: tetrominos[randomKey].shape.map(row => [...row]),
+        type: tetrominos[randomKey].type,
         row: 0,
         col: 3
     };
+}
 
+function checkGameOver() {
+      // Check for game over AFTER creating the piece
+      if (!canMove(currentPiece.row, currentPiece.col)) {
+        isGameOver = true;
+        gameOverElement.style.display = 'flex';
+        finalScoreElement.textContent = totalClearedRows; // Use totalClearedRows instead of score
+        return true;
+    }
+
+    return false;
 }
 
 function hardDrop() {
@@ -394,6 +401,8 @@ document.addEventListener("keydown", (event) => {
 
 function updateScoreboard() {
     document.getElementById("score").textContent = totalClearedRows;
+    document.getElementById("final-score").textContent = totalClearedRows;
+
 }
 
 
@@ -408,7 +417,10 @@ restartBtnGameOver.addEventListener('click', resetGame);
 
 function startGame() {
     isPaused = false; // Makes sure the start unpaused
+    currentPiece = getRandomPiece();
+    nextPiece = getRandomPiece();
     updateBoard();
+    updateNextPieceDisplay();
     requestAnimationFrame(gameLoop); // start loop
 }
 
