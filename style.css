@@ -98,7 +98,10 @@ body {
     padding: 5px;
 }
 
-h1, h3,#scoreboard {
+h1,h2, h3,#scoreboard {
     color: red;
 
+}
+.game-over {
+    color: red;
 }
