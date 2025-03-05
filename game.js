@@ -219,17 +219,19 @@ function rotateMatrix(matrix) {
 
 function rotatePiece() {
     let rotatedShape = rotateMatrix(currentPiece.shape);
-
+    // standard rotation check
     if (canRotate(rotatedShape, currentPiece.row, currentPiece.col)) {
         currentPiece.shape = rotatedShape; // apply rotation if valid
         return;
     }
+    // wall kick offsets (right & left shifts)
     let wallKicks = [1, -1, 2, -2, 3, -3];
 
     // special case for i-piece
     if (currentPiece.type === "i") {
         wallKicks = [2, -2, 3, -3, 4, -4];
     }
+    // try shifting to valid position
     for (let offset of wallKicks) {
         if (canRotate(rotatedShape, currentPiece.row, currentPiece.col + offset)) {
             currentPiece.col += offset;
