@@ -15,6 +15,7 @@ let isGameOver = false;
 let keysPressed = {};
 let lastTime = 0;
 let level = 1;
+let score = 0;
 const levelUpThreshold = 10;
 let dropInterval = 1000;
 const minDropInterval = 100;
@@ -132,6 +133,10 @@ function clearRows() {
 
     if (rowsCleared > 0) {
         totalClearedRows += rowsCleared; // update total cleared rows
+
+        // Apply scoring based on lines cleared at once
+        let baseScore = [0, 100, 300, 500, 800]; 
+        score += (baseScore[rowsCleared] || 0) * level;
 
         // Increase level every 'levelUpThreshold' cleared rows
         if (Math.floor(totalClearedRows / levelUpThreshold) + 1 > level) {
@@ -416,7 +421,7 @@ function updateScoreboard() {
     document.getElementById("lines").textContent = totalClearedRows;
     document.getElementById("final-lines").textContent = totalClearedRows;
     document.getElementById("level").textContent = level;
-
+    document.getElementById("score").textContent = score;
 }
 
 
