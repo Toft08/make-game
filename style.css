@@ -19,9 +19,19 @@ body {
     padding: 0;
 }
 
-/* Typography */
-h1, h2, h3, #scoreboard {
-    color: red;
+/* Retro Box Container */
+#retroContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border: 4px solid red; /* Thick red border */
+    background-color: black; /* Solid black background */
+    box-shadow: 0 0 20px red; /* Slight glow effect */
+    min-width: 900px; /* Adjust size as needed */
+    margin: 20px auto;
+    border-radius: 16px;
 }
 
 #tetrisTitle {
@@ -53,7 +63,7 @@ h1, h2, h3, #scoreboard {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    /* gap: 10px; */
     order: 3; /* Ensure next piece is on the right */
 }
 /* Placeholder boxes */
