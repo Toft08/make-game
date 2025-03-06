@@ -90,14 +90,6 @@ h1, h2, h3, #scoreboard {
 }
 
 
-.game-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    position: relative;
-    order: 2;
-}
-
 /* Game board */
 #gameBoard {
     display: grid;
@@ -105,9 +97,20 @@ h1, h2, h3, #scoreboard {
     grid-template-rows: repeat(20, 30px);
     gap: 1px;
     background-color: black;
-    border: 2px solid #333;
-    margin: 0 auto;
     position: relative;
+    margin: 0 auto;
+}
+
+/* Add a wrapper around the game board specifically for the border effect */
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    order: 2;
+    padding: 0;
+    box-shadow: 0 0 20px red, 0 0 20px red;
+    background-color: transparent;
 }
 
 .cell {
@@ -151,8 +154,7 @@ h1, h2, h3, #scoreboard {
 .tetromino-z { background-color: red; }
 
 .ghost-piece {
-    border: 2px solid cyan;
-    opacity: 0.3;
+    opacity: 0.6;
 }
 
 /* Game state overlays */

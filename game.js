@@ -400,8 +400,8 @@ document.addEventListener("keydown", (event) => {
 
 
 function updateScoreboard() {
-    document.getElementById("score").textContent = totalClearedRows;
-    document.getElementById("final-score").textContent = totalClearedRows;
+    document.getElementById("lines").textContent = totalClearedRows;
+    document.getElementById("final-lines").textContent = totalClearedRows;
 
 }
 
