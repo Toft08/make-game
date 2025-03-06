@@ -421,7 +421,9 @@ function updateScoreboard() {
     document.getElementById("lines").textContent = totalClearedRows;
     document.getElementById("final-lines").textContent = totalClearedRows;
     document.getElementById("level").textContent = level;
+    document.getElementById("final-level").textContent = level;
     document.getElementById("score").textContent = score;
+    document.getElementById("final-score").textContent = score;
 }
 
 
