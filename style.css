@@ -57,7 +57,7 @@ h1, h2, h3, #scoreboard {
     order: 3; /* Ensure next piece is on the right */
 }
 /* Placeholder boxes */
-#scorePlaceholder, #timerPlaceholder, #levelPlaceholder {
+#score, #timer, #level {
     background-color: #222;
     border: 2px solid red;
     border-radius: 10px;
@@ -69,7 +69,7 @@ h1, h2, h3, #scoreboard {
 }
 
 /* Timer and Level placeholder grid */
-#timerPlaceholder {
+#timer {
     background-color: #222;
     display: flex;
     flex-direction: column;
@@ -79,7 +79,7 @@ h1, h2, h3, #scoreboard {
     border: 2px solid red; /* Change color for distinction */
 }
 
-#levelPlaceholder {
+#level {
     background-color: #222;
     display: flex;
     flex-direction: column;
@@ -118,7 +118,7 @@ h1, h2, h3, #scoreboard {
 }
 
 /* UI Elements */
-#scoreboard, #nextPieceContainer {
+#lines, #nextPieceContainer {
     background-color: #222;
     border: 2px solid red;
     border-radius: 10px;
@@ -174,6 +174,10 @@ h1, h2, h3, #scoreboard {
     box-shadow: 0 0 10px red;
     z-index: 10;
     width: 300px;
+}
+#game-over span {
+    all: unset;
+    display: inline;
 }
 
 /* Buttons */
