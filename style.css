@@ -200,11 +200,11 @@ button:hover {
 }
 
 .pause-menu button {
-    background-color: #333;
+    background-color: red;
     margin: 10px;
     transition: background-color 0.2s;
 }
 
 .pause-menu button:hover {
-    background-color: #555;
+    background-color: darkred;
 }

@@ -283,7 +283,7 @@ function checkGameOver() {
       if (!canMove(currentPiece.row, currentPiece.col)) {
         isGameOver = true;
         gameOverElement.style.display = 'flex';
-        finalScoreElement.textContent = totalClearedRows; // Use totalClearedRows instead of score
+        finalScoreElement.textContent = score; 
         return true;
     }
 
