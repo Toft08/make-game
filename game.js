@@ -418,11 +418,11 @@ document.addEventListener("keydown", (event) => {
 
 
 function updateScoreboard() {
-    document.getElementById("lines").textContent = totalClearedRows;
+    document.getElementById("lines").textContent = 'Lines: ' + totalClearedRows;
     document.getElementById("final-lines").textContent = totalClearedRows;
-    document.getElementById("level").textContent = level;
+    document.getElementById("level").textContent = 'level: ' + level;
     document.getElementById("final-level").textContent = level;
-    document.getElementById("score").textContent = score;
+    document.getElementById("score").textContent = 'Score: ' + score;
     document.getElementById("final-score").textContent = score;
 }
 
