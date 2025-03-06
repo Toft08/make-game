@@ -56,6 +56,38 @@ h1, h2, h3, #scoreboard {
     gap: 10px;
     order: 3; /* Ensure next piece is on the right */
 }
+/* Placeholder boxes */
+#scorePlaceholder, #timerPlaceholder, #levelPlaceholder {
+    background-color: #222;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0 0 10px red;
+    width: 200px;
+}
+
+/* Timer and Level placeholder grid */
+#timerPlaceholder {
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    order: 1;
+    border: 2px solid red; /* Change color for distinction */
+}
+
+#levelPlaceholder {
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    order: 1;
+    border: 2px solid red; /* Change color for distinction */
+}
 
 
 .game-container {
