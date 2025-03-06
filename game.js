@@ -14,7 +14,10 @@ let isPaused = false;
 let isGameOver = false;
 let keysPressed = {};
 let lastTime = 0;
-const dropInterval = 1000;
+let level = 1;
+const levelUpThreshold = 10;
+let dropInterval = 1000;
+const minDropInterval = 100;
 let dropCounter = 0;
 const rows = 20;
 const cols = 10;
@@ -120,20 +123,29 @@ function resetGame() {
 }
 
 function clearRows() {
+    const levelUpThreshold = 10; // Move inside as a temporary fix
+
     let newBoard = board.filter(row => row.some(cell => cell === 0));
     let rowsCleared = rows - newBoard.length; // count removed rows
 
     if (rowsCleared > 0) {
         totalClearedRows += rowsCleared; // update total cleared rows
-        updateScoreboard(); // update the scoreboard
+
+        // Increase level every 'levelUpThreshold' cleared rows
+        if (Math.floor(totalClearedRows / levelUpThreshold) + 1 > level) {
+            level++;
+            dropInterval = Math.max(minDropInterval, dropInterval * 0.2); // Increase speed 0.8 or 0.9 when done with testing
+        }
+
+        updateScoreboard();
     }
 
     while (newBoard.length < rows) {
         newBoard.unshift(new Array(cols).fill(0)); // add empty rows at the top
     }
     board = newBoard;
-
 }
+
 
 function getGhostPosition() {
     let ghostRow = currentPiece.row;
@@ -302,7 +314,6 @@ function hardDrop() {
 
 function gameLoop(timestamp) {
     if (isPaused || isGameOver) {
-        // requestAnimationFrame(gameLoop);
         return
     }
 
@@ -402,6 +413,7 @@ document.addEventListener("keydown", (event) => {
 function updateScoreboard() {
     document.getElementById("lines").textContent = totalClearedRows;
     document.getElementById("final-lines").textContent = totalClearedRows;
+    document.getElementById("level").textContent = level;
 
 }
 
