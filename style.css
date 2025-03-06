@@ -1,49 +1,100 @@
+/* Import fonts at the top of the file */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+/* Global styles */
 body {
-    font-family: 'Press Start 2P', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     background-color: #121212;
+    color: red;
+    font-family: 'Press Start 2P', sans-serif;
     background-image: 
         linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 40px 40px;
+    margin: 0;
+    padding: 0;
 }
 
-/* .game-container {
-    display: flex;
-    position: relative;
-} */
-
-
-#gameBoard {
-    display: grid;
-    grid-template-columns: repeat(10, 30px); /* 10 columns */
-    grid-template-rows: repeat(20, 30px); /* 20 rows */
-    gap: 1px;
-    background-color: black;
-    margin: auto; /* Centers it horizontally */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* Typography */
+h1, h2, h3, #scoreboard {
+    color: red;
 }
 
 #tetrisTitle {
     text-align: center;
+    margin-bottom: 20px;
 }
+
+/* Layout containers */
+.main-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+.ui-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    order: 2; /* Moves this container to the right side */
+}
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Game board */
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(20, 30px);
+    gap: 1px;
+    background-color: black;
+    border: 2px solid #333;
+}
+
 .cell {
     width: 30px;
     height: 30px;
     background-color: #222; /* Default empty cell color */
     border: 1px solid #111;
 }
-.block {
-    width: 20px;
-    height: 20px;
+
+/* UI Elements */
+#scoreboard, #nextPieceContainer {
+    background-color: #222;
+    border: 2px solid red;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 10px;
+    box-shadow: 0 0 10px red;
+    width: 200px;
 }
 
+#nextPieceGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 20px);
+    grid-template-rows: repeat(4, 20px);
+    gap: 2px;
+    width: 90px;
+    height: 90px;
+    background-color: black;
+    padding: 5px;
+    margin: 0 auto;
+}
 
-/* Tetromino colors */
+/* Tetromino styles */
 .tetromino-t { background-color: purple; }
 .tetromino-i { background-color: cyan; }
 .tetromino-o { background-color: yellow; }
@@ -57,51 +108,50 @@ body {
     opacity: 0.3;
 }
 
-.pause-menu {
+/* Game state overlays */
+.game-over, .pause-menu {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    color: red;
+    padding: 20px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 2px solid red;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 10px red;
     z-index: 10;
+    width: 300px;
+}
+
+/* Buttons */
+button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: darkred;
 }
 
 .pause-menu button {
     background-color: #333;
-    color: white;
-    border: none;
-    padding: 10px 20px;
     margin: 10px;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .pause-menu button:hover {
     background-color: #555;
-}
-
-#nextPieceGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 20px);
-    grid-template-rows: repeat(4, 20px);
-    gap: 2px;
-    width: 90px;
-    height: 90px;
-    background-color: black;
-    padding: 5px;
-}
-
-h1,h2, h3,#scoreboard {
-    color: red;
-
-}
-.game-over {
-    color: red;
 }
