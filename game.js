@@ -283,7 +283,7 @@ function checkGameOver() {
       if (!canMove(currentPiece.row, currentPiece.col)) {
         isGameOver = true;
         gameOverElement.style.display = 'flex';
-        finalScoreElement.textContent = totalClearedRows; // Use totalClearedRows instead of score
+        finalScoreElement.textContent = score; 
         return true;
     }
 
@@ -400,8 +400,8 @@ document.addEventListener("keydown", (event) => {
 
 
 function updateScoreboard() {
-    document.getElementById("score").textContent = totalClearedRows;
-    document.getElementById("final-score").textContent = totalClearedRows;
+    document.getElementById("lines").textContent = totalClearedRows;
+    document.getElementById("final-lines").textContent = totalClearedRows;
 
 }
 

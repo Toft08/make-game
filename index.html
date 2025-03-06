@@ -8,33 +8,46 @@
     <title>Tetris</title>
 </head>
 <body>
+    <div id="retroContainer">
     <h1 id="tetrisTitle">TETRIS</h1>
 
-    <div class="game-container">
-        <div id="gameBoard"></div>
-        
-        <div class="pause-menu" id="pause-menu">
-            <h2>PAUSED</h2>
-            <button id="continue-btn">Continue</button>
-            <button id="restart-btn">Restart</button>
+    <div class="main-container">
+        <!-- Left Sidebar (Scoreboard) -->
+        <div class="left-sidebar">
+            <div id="lines">Lines: 0</div>
+            <!-- Placeholder boxes -->
+            <div id="score">Score: </div>
+            <div id="timer">Timer: 00:00</div>
+            <div id="level">Level: 1</div>
         </div>
-        <div class="game-over" id="game-over">
-            <h2>GAME OVER</h2>
-            <p>Your score: <span id="final-score">0</span></p>
-            <button id="restart-btn-game-over">Restart</button>
+
+        <!-- Game Board (Center) -->
+        <div class="game-container">
+            <div id="gameBoard"></div>
+
+            <div class="pause-menu" id="pause-menu">
+                <h2>PAUSED</h2>
+                <button id="continue-btn">Continue</button>
+                <button id="restart-btn">Restart</button>
+            </div>
+            <div class="game-over" id="game-over">
+                <h2>GAME OVER</h2>
+                <p>Lines: <span id="final-lines">0</span></p>
+                <p>Score: <span id="score">0</span></p>
+                <p>Level: <span id="level">0</span></p>
+                <button id="restart-btn-game-over">Restart</button>
+            </div>
+        </div>
+
+        <!-- Right Sidebar (Next Piece) -->
+        <div class="right-sidebar">
+            <div id="nextPieceContainer">
+                <h3>Next Piece</h3>
+                <div id="nextPieceGrid"></div>
+            </div>
         </div>
     </div>
-
-
-    <div id="scoreboard">Rows Cleared: 
-        <h3><span id="score">0</span></h3>
-    </div>
-    
-    <div id="nextPieceContainer">
-        <h3>Next Piece</h3>
-        <div id="nextPieceGrid"></div>
-    </div>
-
+</div>
     <script src="game.js"></script>
 </body>
 </html>
