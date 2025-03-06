@@ -32,25 +32,38 @@ h1, h2, h3, #scoreboard {
 /* Layout containers */
 .main-container {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 20px;
-    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
 }
-
-.ui-container {
+/* Sidebar for scoreboard */
+.left-sidebar {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    order: 2; /* Moves this container to the right side */
+    order: 1; /* Ensure scoreboard is on the left */
 }
+
+/* Sidebar for next piece */
+.right-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    order: 3; /* Ensure next piece is on the right */
+}
+
 
 .game-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     position: relative;
+    order: 2;
 }
 
 /* Game board */
@@ -61,6 +74,8 @@ h1, h2, h3, #scoreboard {
     gap: 1px;
     background-color: black;
     border: 2px solid #333;
+    margin: 0 auto;
+    position: relative;
 }
 
 .cell {

@@ -11,17 +11,14 @@
     <h1 id="tetrisTitle">TETRIS</h1>
 
     <div class="main-container">
-        <div class="ui-container">
+        <!-- Left Sidebar (Scoreboard) -->
+        <div class="left-sidebar">
             <div id="scoreboard">Rows Cleared: 
                 <h3><span id="score">0</span></h3>
             </div>
-            
-            <div id="nextPieceContainer">
-                <h3>Next Piece</h3>
-                <div id="nextPieceGrid"></div>
-            </div>
         </div>
 
+        <!-- Game Board (Center) -->
         <div class="game-container">
             <div id="gameBoard"></div>
 
@@ -36,9 +33,16 @@
                 <button id="restart-btn-game-over">Restart</button>
             </div>
         </div>
+
+        <!-- Right Sidebar (Next Piece) -->
+        <div class="right-sidebar">
+            <div id="nextPieceContainer">
+                <h3>Next Piece</h3>
+                <div id="nextPieceGrid"></div>
+            </div>
+        </div>
     </div>
 
     <script src="game.js"></script>
 </body>
-
 </html>
