@@ -1,6 +1,10 @@
 // Keyboard controls
 document.addEventListener("keydown", (event) => {
     if (isGameOver) return; // Prevent inputs if game is over
+
+        // Check if controls popup is open
+        const controlsPopup = document.getElementById("controls-popup");
+        if (controlsPopup.style.display === "block") return;
     
     // Toggle pause with Escape key
     if (event.key === 'Escape') {
