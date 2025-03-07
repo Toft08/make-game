@@ -20,6 +20,9 @@ const levelUpThreshold = 10;
 let dropInterval = 1000;
 const minDropInterval = 100;
 let dropCounter = 0;
+let seconds = 0;
+let minutes = 0;
+let timeInterval;
 const rows = 20;
 const cols = 10;
 
@@ -99,12 +102,12 @@ function resetGame() {
     isGameOver = false;
     score = 0;
     level = 1;
-    startTime = performance.now();
+    // startTime = performance.now();
     elapsedTime = 0;
     dropInterval = 1000;
     dropCounter = 0;
     totalClearedRows = 0;
-    lastTime = performance.now();
+    // lastTime = performance.now();
     
     // Hide menus
     pauseMenu.style.display = 'none';
@@ -115,6 +118,13 @@ function resetGame() {
     cells.forEach(cell => {
         cell.className = "cell";
     });
+
+    // Reset timer
+    clearInterval(timeInterval);
+    seconds = 0;
+    minutes = 0;
+    document.getElementById("timer").textContent = "Timer: 00:00";
+    startTimer();
 
     nextPiece = getRandomPiece();
     updateNextPieceDisplay();
@@ -335,6 +345,19 @@ function gameLoop(timestamp) {
     requestAnimationFrame(gameLoop); //continue loop
 }
 
+function startTimer() {
+    timeInterval = setInterval(function() {
+        if (!isPaused && !isGameOver) {
+            seconds++;
+            if (seconds >= 60) {
+                seconds = 0;
+                minutes++;
+            }
+            document.getElementById("timer").textContent = `Timer: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+    }, 1000);
+}
+
 function togglePause() {
     if (isGameOver) return; // Prevent pausing if the game is over
 
@@ -442,6 +465,7 @@ function startGame() {
     nextPiece = getRandomPiece();
     updateBoard();
     updateNextPieceDisplay();
+    startTimer();
     requestAnimationFrame(gameLoop); // start loop
 }
 
