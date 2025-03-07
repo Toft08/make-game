@@ -46,3 +46,24 @@ document.addEventListener('keyup', (e) => {
 continueBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
 restartBtnGameOver.addEventListener('click', resetGame);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const controlsBtn = document.getElementById("controls-btn");
+    const controlsPopup = document.getElementById("controls-popup");
+    const closePopup = document.getElementById("close-popup");
+
+    controlsBtn.addEventListener("click", function () {
+        controlsPopup.style.display = "block";
+    });
+
+    closePopup.addEventListener("click", function () {
+        controlsPopup.style.display = "none";
+    });
+
+    // Optional: Close popup when clicking outside it
+    window.addEventListener("click", function (event) {
+        if (event.target === controlsPopup) {
+            controlsPopup.style.display = "none";
+        }
+    });
+});
