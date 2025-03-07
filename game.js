@@ -151,7 +151,7 @@ function clearRows() {
         // Increase level every 'levelUpThreshold' cleared rows
         if (Math.floor(totalClearedRows / levelUpThreshold) + 1 > level) {
             level++;
-            dropInterval = Math.max(minDropInterval, dropInterval * 0.2); // Increase speed 0.8 or 0.9 when done with testing
+            dropInterval = Math.max(minDropInterval, dropInterval * 0.8); // Increase speed 0.8 or 0.9 when done with testing
         }
 
         updateScoreboard();
