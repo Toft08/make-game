@@ -53,7 +53,6 @@ function togglePause() {
 
     if (isPaused) {
         pauseMenu.style.display = 'flex';
-        // elapsedTime += performance.now() - startTime;
     } else {
         pauseMenu.style.display = 'none';
         requestAnimationFrame(gameLoop);

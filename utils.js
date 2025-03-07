@@ -9,8 +9,6 @@ const restartBtnGameOver = document.getElementById('restart-btn-game-over');
 
 // Hide elements initially
 gameOverElement.style.display = 'none';
-// restartBtn.style.display = 'none'; 
-// restartBtnGameOver.style.display = 'none';
 
 // Game constants and variables
 let isPaused = false;
