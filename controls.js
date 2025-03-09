@@ -1,6 +1,10 @@
 // Keyboard controls
 document.addEventListener("keydown", (event) => {
     if (isGameOver) return; // Prevent inputs if game is over
+
+        // Check if controls popup is open
+        const controlsPopup = document.getElementById("controls-popup");
+        if (controlsPopup.style.display === "block") return;
     
     // Toggle pause with Escape key
     if (event.key === 'Escape') {
@@ -46,3 +50,24 @@ document.addEventListener('keyup', (e) => {
 continueBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
 restartBtnGameOver.addEventListener('click', resetGame);
+
+document.addEventListener("DOMContentLoaded", function () {
+    const controlsBtn = document.getElementById("controls-btn");
+    const controlsPopup = document.getElementById("controls-popup");
+    const closePopup = document.getElementById("close-popup");
+
+    controlsBtn.addEventListener("click", function () {
+        controlsPopup.style.display = "block";
+    });
+
+    closePopup.addEventListener("click", function () {
+        controlsPopup.style.display = "none";
+    });
+
+    // Optional: Close popup when clicking outside it
+    window.addEventListener("click", function (event) {
+        if (event.target === controlsPopup) {
+            controlsPopup.style.display = "none";
+        }
+    });
+});

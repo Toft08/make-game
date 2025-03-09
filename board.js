@@ -58,8 +58,6 @@ function drawBoard(tempBoard) {
 }
 
 function clearRows() {
-    const levelUpThreshold = 10; // Move inside as a temporary fix
-
     let newBoard = board.filter(row => row.some(cell => cell === 0));
     let rowsCleared = rows - newBoard.length; // count removed rows
 

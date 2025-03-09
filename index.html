@@ -1,59 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="style.css">
-    <title>Tetris</title>
-</head>
-<body>
-    <div id="retroContainer">
-    <h1 id="tetrisTitle">TETRIS</h1>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="images/favicon.ico">
+        <link rel="stylesheet" href="style.css">
+        <title>Tetris</title>
+    </head>
+    <body>
+        <div id="retroContainer">
+        <h1 id="tetrisTitle">TETRIS</h1>
 
-    <div class="main-container">
-        <!-- Left Sidebar (Scoreboard) -->
-        <div class="left-sidebar">
-            <div id="lines">Lines: 0</div>
-            <!-- Placeholder boxes -->
-            <div id="score">Score: </div>
-            <div id="timer">Timer: 00:00</div>
-            <div id="level">Level: 1</div>
-        </div>
-
-        <!-- Game Board (Center) -->
-        <div class="game-container">
-            <div id="gameBoard"></div>
-
-            <div class="pause-menu" id="pause-menu">
-                <h2>PAUSED</h2>
-                <button id="continue-btn">Continue</button>
-                <button id="restart-btn">Restart</button>
+        <div class="main-container">
+            <!-- Left Sidebar (Scoreboard) -->
+            <div class="left-sidebar">
+                <div id="lines">Lines: 0</div>
+                <!-- Placeholder boxes -->
+                <div id="score">Score: </div>
+                <div id="timer">Timer: 00:00</div>
+                <div id="level">Level: 1</div>
             </div>
-            <div class="game-over" id="game-over">
-                <h2>GAME OVER</h2>
-                <p>Lines: <span id="final-lines">0</span></p>
-                <p>Score: <span id="final-score">0</span></p>
-                <p>Level: <span id="final-level">0</span></p>
-                <button id="restart-btn-game-over">Restart</button>
-            </div>
-        </div>
 
-        <!-- Right Sidebar (Next Piece) -->
-        <div class="right-sidebar">
-            <div id="nextPieceContainer">
-                <h3>Next Piece</h3>
-                <div id="nextPieceGrid"></div>
+            <!-- Game Board (Center) -->
+            <div class="game-container">
+                <div id="gameBoard"></div>
+
+                <div class="pause-menu" id="pause-menu">
+                    <h2>PAUSED</h2>
+                    <button id="continue-btn">Continue</button>
+                    <button id="restart-btn">Restart</button>
+                    <button id="controls-btn">Controls</button>
+                </div>
+                <div class="game-over" id="game-over">
+                    <h2>GAME OVER</h2>
+                    <p>Lines: <span id="final-lines">0</span></p>
+                    <p>Score: <span id="final-score">0</span></p>
+                    <p>Level: <span id="final-level">0</span></p>
+                    <button id="restart-btn-game-over">Restart</button>
+                </div>
+            </div>
+
+            <!-- Right Sidebar (Next Piece) -->
+            <div class="right-sidebar">
+                <div id="nextPieceContainer">
+                    <h3>Next Piece</h3>
+                    <div id="nextPieceGrid"></div>
+                </div>
+            </div>
+
+            <!-- Controls Popup -->
+            <div id="controls-popup" class="popup hidden">
+                <div class="popup-content">
+                    <img src="images/controls.jpg" alt="controls">
+                    <button id="close-popup">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script src="utils.js"></script>
-<script src="tetrominos.js"></script>
-<script src="board.js"></script>
-<script src="ui.js"></script>
-<script src="game.js"></script>
-<script src="controls.js"></script>
-<script src="main.js"></script>
-</body>
-</html>
+    <script src="utils.js"></script>
+    <script src="tetrominos.js"></script>
+    <script src="board.js"></script>
+    <script src="ui.js"></script>
+    <script src="game.js"></script>
+    <script src="controls.js"></script>
+    <script src="main.js"></script>
+    </body>
+    </html>
