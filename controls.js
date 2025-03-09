@@ -47,10 +47,9 @@ document.addEventListener('keyup', (e) => {
 });
 
 // Menu button event listeners
-continueBtn.addEventListener('click', togglePause);
+playBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
 restartBtnGameOver.addEventListener('click', resetGame);
-playBtn.addEventListener("click", startGame);
 
 window.onload = function () {
     isPaused = true;

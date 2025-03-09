@@ -1,9 +1,8 @@
 // Global variables
-const playBtn = document.getElementById('play-btn');
 const gameBoard = document.getElementById("gameBoard");
 const pauseMenu = document.getElementById('pause-menu');
 const gameOverElement = document.getElementById('game-over');
-const continueBtn = document.getElementById('continue-btn');
+const playBtn = document.getElementById('play-btn');
 const restartBtn = document.getElementById('restart-btn');
 const finalScoreElement = document.getElementById('final-score');
 const restartBtnGameOver = document.getElementById('restart-btn-game-over');
