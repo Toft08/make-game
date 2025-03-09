@@ -131,6 +131,7 @@ function resetGame() {
 
 function startGame() {
     isPaused = false; // Makes sure the start unpaused
+    pauseMenu.style.display = "none";
     currentPiece = getRandomPiece();
     nextPiece = getRandomPiece();
     updateBoard();
@@ -138,3 +139,4 @@ function startGame() {
     startTimer();
     requestAnimationFrame(gameLoop); // start loop
 }
+

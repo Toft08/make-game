@@ -34,6 +34,8 @@ function updateScoreboard() {
 }
 
 function startTimer() {
+    clearInterval(timeInterval);
+    
     timeInterval = setInterval(function() {
         if (!isPaused && !isGameOver) {
             seconds++;

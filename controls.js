@@ -50,6 +50,12 @@ document.addEventListener('keyup', (e) => {
 continueBtn.addEventListener('click', togglePause);
 restartBtn.addEventListener('click', resetGame);
 restartBtnGameOver.addEventListener('click', resetGame);
+playBtn.addEventListener("click", startGame);
+
+window.onload = function () {
+    isPaused = true;
+    pauseMenu.style.display = "block";
+};
 
 document.addEventListener("DOMContentLoaded", function () {
     const controlsBtn = document.getElementById("controls-btn");
