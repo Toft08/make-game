@@ -29,7 +29,7 @@ function updateScoreboard() {
     document.getElementById("final-lines").textContent = totalClearedRows;
     document.getElementById("level").textContent = 'Level: ' + level;
     document.getElementById("final-level").textContent = level;
-    document.getElementById("score").textContent = 'score: ' + score;
+    document.getElementById("score").textContent = 'Score: ' + score;
     document.getElementById("final-score").textContent = score;
 }
 
