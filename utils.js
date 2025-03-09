@@ -1,4 +1,5 @@
 // Global variables
+const playBtn = document.getElementById('play-btn');
 const gameBoard = document.getElementById("gameBoard");
 const pauseMenu = document.getElementById('pause-menu');
 const gameOverElement = document.getElementById('game-over');
