@@ -54,6 +54,7 @@ restartBtnGameOver.addEventListener('click', resetGame);
 window.onload = function () {
     isPaused = true;
     pauseMenu.style.display = "block";
+    restartBtn.style.display = "none";
 };
 
 document.addEventListener("DOMContentLoaded", function () {

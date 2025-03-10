@@ -55,8 +55,14 @@ function togglePause() {
 
     if (isPaused) {
         pauseMenu.style.display = 'flex';
+
+        if (gameHasStarted) {
+            restartBtn.style.display = 'block';
+        }
     } else {
         pauseMenu.style.display = 'none';
         requestAnimationFrame(gameLoop);
+
+        gameHasStarted = true;
     }
 }

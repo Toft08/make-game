@@ -27,6 +27,7 @@ let timeInterval;
 const rows = 20;
 const cols = 10;
 let totalClearedRows = 0;
+let gameHasStarted = false;
 
 // Create a 10x20 grid
 for (let i = 0; i < 200; i++) {
