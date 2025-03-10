@@ -1,50 +1,49 @@
-// Keyboard controls
+// Handle key press (store key states)
 document.addEventListener("keydown", (event) => {
-    if (isGameOver) return; // Prevent inputs if game is over
+    if (isGameOver) return; // Prevent input if game is over
 
-        // Check if controls popup is open
-        const controlsPopup = document.getElementById("controls-popup");
-        if (controlsPopup.style.display === "block") return;
-    
+    // Prevent input if controls popup is open
+    const controlsPopup = document.getElementById("controls-popup");
+    if (controlsPopup.style.display === "block") return;
+
     // Toggle pause with Escape key
     if (event.key === 'Escape') {
         togglePause();
         return;
     }
-    
-    if (isPaused) return; // Ignore all inputs if paused
 
-    // Track key presses for continuous movement
-    keysPressed[event.key] = true;
+    if (isPaused) return; // Ignore input if paused
 
-    // Handle immediate actions
-    switch (event.key) {
-    case "ArrowLeft":
-        if (canMove(currentPiece.row, currentPiece.col -1)) {
-            currentPiece.col--;
-        }
-        break;
-    case "ArrowRight":
-        if (canMove(currentPiece.row, currentPiece.col +1)) {
-            currentPiece.col++;
-        }
-        break;
-    case "ArrowDown":
-        moveDown();
-        break;
-    case "ArrowUp":
-        rotatePiece();
-        break;
-    case " ":
-        hardDrop();
-        break;
+    keysPressed[event.key] = true; // Store pressed key
+
+    // Immediate actions (rotation & hard drop)
+    if (event.key === "ArrowUp") rotatePiece();
+    if (event.key === " ") hardDrop();
+});
+
+// Handle key release (stop movement)
+document.addEventListener("keyup", (event) => {
+    delete keysPressed[event.key];
+});
+
+let lastMoveTime = 0;
+const moveDelay = 100;
+
+// Function to handle movement in the game loop
+function handleMovement(timestamp) {
+    if (timestamp - lastMoveTime < moveDelay) return;
+    lastMoveTime = timestamp;
+
+    if (keysPressed["ArrowLeft"] && canMove(currentPiece.row, currentPiece.col - 1)) {
+        currentPiece.col--;
     }
-    updateBoard();
-});
-
-document.addEventListener('keyup', (e) => {
-    keysPressed[e.key] = false;
-});
+    if (keysPressed["ArrowRight"] && canMove(currentPiece.row, currentPiece.col + 1)) {
+        currentPiece.col++;
+    }
+    if (keysPressed["ArrowDown"]) {
+        moveDown();
+    }
+}
 
 // Menu button event listeners
 playBtn.addEventListener('click', togglePause);

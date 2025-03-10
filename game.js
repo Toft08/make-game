@@ -78,10 +78,13 @@ function gameLoop(timestamp) {
     lastTime = timestamp;
     dropCounter += deltaTime;
 
+    handleMovement(timestamp);
+
     if (dropCounter > dropInterval) {
         moveDown();
         dropCounter = 0;
     }
+    updateBoard();
     requestAnimationFrame(gameLoop); //continue loop
 }
 
