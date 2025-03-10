@@ -96,12 +96,10 @@ function resetGame() {
     isGameOver = false;
     score = 0;
     level = 1;
-    // startTime = performance.now();
     elapsedTime = 0;
     dropInterval = 1000;
     dropCounter = 0;
     totalClearedRows = 0;
-    // lastTime = performance.now();
     
     // Hide menus
     pauseMenu.style.display = 'none';
