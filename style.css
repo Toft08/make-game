@@ -1,37 +1,37 @@
-/* Import fonts at the top of the file */
+/* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-/* Global styles */
+/* Reset and base styles */
 body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    background-color: #121212;
-    color: red;
     font-family: 'Press Start 2P', sans-serif;
+    color: red;
+    background-color: #121212;
     background-image: 
         linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 40px 40px;
-    margin: 0;
-    padding: 0;
 }
 
-/* Retro Box Container */
+/* Main container */
 #retroContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px;
-    border: 4px solid red; /* Thick red border */
-    background-color: black; /* Solid black background */
-    box-shadow: 0 0 20px red; /* Slight glow effect */
-    min-width: 900px; /* Adjust size as needed */
+    min-width: 900px;
     margin: 20px auto;
+    padding: 40px;
+    border: 4px solid red;
     border-radius: 16px;
+    background-color: black;
+    box-shadow: 0 0 20px red;
 }
 
 #tetrisTitle {
@@ -39,68 +39,44 @@ body {
     margin-bottom: 20px;
 }
 
-/* Layout containers */
+/* Layout structure */
 .main-container {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 20px;
     width: 100%;
     max-width: 800px;
+    gap: 20px;
     margin: 0 auto;
 }
-/* Sidebar for scoreboard */
+
 .left-sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    order: 1; /* Ensure scoreboard is on the left */
+    order: 1;
 }
 
-/* Sidebar for next piece */
 .right-sidebar {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* gap: 10px; */
-    order: 3; /* Ensure next piece is on the right */
-}
-/* Placeholder boxes */
-#score, #timer, #level {
-    background-color: #222;
-    border: 2px solid red;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    margin-top: 10px;
-    box-shadow: 0 0 10px red;
-    width: 200px;
+    order: 3;
 }
 
-/* Timer and Level placeholder grid */
-#timer {
-    background-color: #222;
+/* Game board and container */
+.game-container {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    order: 1;
-    border: 2px solid red; /* Change color for distinction */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    order: 2;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: 0 0 40px red;
 }
 
-#level {
-    background-color: #222;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    order: 1;
-    border: 2px solid red; /* Change color for distinction */
-}
-
-
-/* Game board */
 #gameBoard {
     display: grid;
     grid-template-columns: repeat(10, 30px);
@@ -111,35 +87,27 @@ body {
     margin: 0 auto;
 }
 
-/* Add a wrapper around the game board specifically for the border effect */
-.game-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    order: 2;
-    padding: 0;
-    box-shadow: 0 0 20px red, 0 0 20px red;
-    background-color: transparent;
-}
-
 .cell {
     width: 30px;
     height: 30px;
-    background-color: #222; /* Default empty cell color */
+    background-color: #222;
     border: 1px solid #111;
 }
 
-/* UI Elements */
-#lines, #nextPieceContainer {
+/* UI Elements with consistent styling */
+#score, 
+#timer, 
+#level, 
+#lines, 
+#nextPieceContainer {
+    width: 200px;
+    margin-top: 10px;
+    padding: 15px;
+    text-align: center;
     background-color: #222;
     border: 2px solid red;
     border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    margin-top: 10px;
     box-shadow: 0 0 10px red;
-    width: 200px;
 }
 
 #nextPieceGrid {
@@ -149,12 +117,12 @@ body {
     gap: 2px;
     width: 90px;
     height: 90px;
-    background-color: black;
-    padding: 5px;
     margin: 0 auto;
+    padding: 5px;
+    background-color: black;
 }
 
-/* Tetromino styles */
+/* Tetromino colors */
 .tetromino-t { background-color: purple; }
 .tetromino-i { background-color: cyan; }
 .tetromino-o { background-color: yellow; }
@@ -168,70 +136,69 @@ body {
 }
 
 /* Game state overlays */
-.game-over, .pause-menu {
+.game-over, 
+.pause-menu {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    color: red;
+    width: 300px;
     padding: 20px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: red;
     border: 2px solid red;
     border-radius: 10px;
-    text-align: center;
     box-shadow: 0 0 10px red;
     z-index: 10;
-    width: 300px;
 }
-#game-over span {
+
+/* #game-over span {
     all: unset;
     display: inline;
-}
+} */
 
 /* Buttons */
 button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 10px 20px;
     margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+    padding: 10px 20px;
     font-family: 'Press Start 2P', sans-serif;
     font-size: 14px;
-}
-
-button:hover {
-    background-color: darkred;
+    color: white;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .pause-menu button {
-    background-color: red;
     margin: 10px;
+    background-color: red;
     transition: background-color 0.2s;
 }
 
 .pause-menu button:hover {
     background-color: darkred;
 }
+
 /* Popup styles */
 .popup {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 20px;
+    display: none;
+    text-align: center;
     background: rgba(0, 0, 0, 0.8);
     color: red;
-    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px red;
-    text-align: center;
     z-index: 1000;
-    display: none; /* Hidden by default */
 }
 
 .popup-content {

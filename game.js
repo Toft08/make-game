@@ -138,3 +138,4 @@ function startGame() {
     requestAnimationFrame(gameLoop); // start loop
 }
 
+startGame();
