@@ -7,9 +7,6 @@ const restartBtn = document.getElementById('restart-btn');
 const finalScoreElement = document.getElementById('final-score');
 const restartBtnGameOver = document.getElementById('restart-btn-game-over');
 
-// Hide elements initially
-gameOverElement.style.display = 'none';
-
 // Game constants and variables
 let isPaused = false;
 let isGameOver = false;
