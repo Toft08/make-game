@@ -9,9 +9,14 @@ Clone the repository:
 git clone https://github.com/Toft08/make-game.git
 cd make-game
 ```
+Start a local server (using Python’s built-in HTTP server):
+```
+python3 -m http.server
+```
+Open the game in your browser:
 
-Open index.html in a browser.
-
+Go to http://localhost:8000 in your web browser.
+The game should now be running.
 
 ## Features
 * Runs at 60 FPS with no frame drops
