@@ -34,7 +34,7 @@ for (let i = 0; i < 200; i++) {
     cell.classList.add("cell");
     gameBoard.appendChild(cell);
 }
-
+// Checking if tetris piece can move to a new position
 function canMove(nextRow, nextCol) {
     let shape = currentPiece.shape;
     for (let r = 0; r < shape.length; r++) {
@@ -50,7 +50,7 @@ function canMove(nextRow, nextCol) {
     }
     return true;
 }
-
+// Cheking if tetris pieces can rotate
 function canRotate(newShape, row, col) {
     for (let r = 0; r < newShape.length; r++) {
         for (let c = 0; c < newShape[r].length; c++) {
@@ -69,7 +69,7 @@ function canRotate(newShape, row, col) {
     }
     return true;
 }
-
+// Calculates where current tetris piece would land
 function getGhostPosition() {
     let ghostRow = currentPiece.row;
 
