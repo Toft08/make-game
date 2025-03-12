@@ -40,6 +40,15 @@ function rotatePiece() {
             return;
         }
     }
+      // Floor kicks: Try shifting the piece upwards
+      let floorKicks = [-1, -2]; // Try moving up 1 or 2 rows
+      for (let offset of floorKicks) {
+          if (canRotate(rotatedShape, currentPiece.row + offset, currentPiece.col)) {
+              currentPiece.row += offset; // Move piece up
+              currentPiece.shape = rotatedShape;
+              return;
+          }
+      }
 }
 
 function spawnNewPiece() {
