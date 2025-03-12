@@ -9,9 +9,22 @@ const tetrominos = {
     Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
+// Initialize a "bag" of pieces
+let pieceBag = [];
+
 function getRandomPiece() {
-    const keys = Object.keys(tetrominos);
-    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    // If the bag is empty, refill it with one of each piece
+    if (pieceBag.length === 0) {
+        pieceBag = [...Object.keys(tetrominos)];
+        // Shuffle the bag
+        for (let i = pieceBag.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pieceBag[i], pieceBag[j]] = [pieceBag[j], pieceBag[i]];
+        }
+    }
+    
+    // Take a piece from the bag
+    const randomKey = pieceBag.pop();
     
     return {
         shape: tetrominos[randomKey].shape.map(row => [...row]),

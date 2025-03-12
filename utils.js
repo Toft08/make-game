@@ -28,12 +28,6 @@ const cols = 10;
 let totalClearedRows = 0;
 let gameHasStarted = false;
 
-// Create a 10x20 grid
-for (let i = 0; i < 200; i++) {
-    let cell = document.createElement("div");
-    cell.classList.add("cell");
-    gameBoard.appendChild(cell);
-}
 // Checking if tetris piece can move to a new position
 function canMove(nextRow, nextCol) {
     let shape = currentPiece.shape;

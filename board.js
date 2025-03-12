@@ -1,3 +1,10 @@
+// Create a 10x20 grid
+for (let i = 0; i < 200; i++) {
+    let cell = document.createElement("div");
+    cell.classList.add("cell");
+    gameBoard.appendChild(cell);
+}
+
 // Initialize the game board as 2D array filled with 0 (empty spaces)
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 
