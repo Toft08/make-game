@@ -1,10 +1,9 @@
 // Current and next piece variables
 let currentPiece = {
-    shape: tetrominos.T.shape,
-    type: tetrominos.T.type,
-    row: 0,
-    col: 3
+    shape: tetrominos.shape,
+    type: tetrominos.type,
 };
+
 
 let nextPiece = getRandomPiece();
 
