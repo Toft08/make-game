@@ -12,37 +12,54 @@ function moveDown() {
 }
 
 function rotatePiece() {
-    let rotatedShape = rotateMatrix(currentPiece.shape);
-    // standard rotation check
-    if (canRotate(rotatedShape, currentPiece.row, currentPiece.col)) {
-        currentPiece.shape = rotatedShape; // apply rotation if valid
-        return;
+    if (currentPiece.type === "tetromino-o") {
+        return false; // O-piece does not rotate
     }
-    // wall kick offsets (right & left shifts)
-    let wallKicks = [1, -1, 2, -2, 3, -3];
 
-    // special case for i-piece
-    if (currentPiece.type === "i") {
-        wallKicks = [2, -2, 3, -3, 4, -4];
-    }
-    // try shifting to valid position
-    for (let offset of wallKicks) {
-        if (canRotate(rotatedShape, currentPiece.row, currentPiece.col + offset)) {
-            currentPiece.col += offset;
-            currentPiece.shape = rotatedShape;
-            return;
+    let rotatedShape = rotateMatrix(currentPiece.shape);
+    let originalRow = currentPiece.row;
+    let originalCol = currentPiece.col;
+
+    // Special handling for I-piece to rotate from its center
+    if (currentPiece.type === "tetromino-i") {
+        if (currentPiece.shape.length === 1) { 
+            currentPiece.row -= 1; // Horizontal → Vertical (shift up)
+            currentPiece.col += 1; // Shift right
+        } else { 
+            currentPiece.row += 1; // Vertical → Horizontal (shift down)
+            currentPiece.col -= 1; // Shift left
         }
     }
-      // Try shifting the piece upwards
-      let floorKicks = [-1, -2]; // Try moving up 1 or 2 rows
-      for (let offset of floorKicks) {
-          if (canRotate(rotatedShape, currentPiece.row + offset, currentPiece.col)) {
-              currentPiece.row += offset; // Move piece up
-              currentPiece.shape = rotatedShape;
-              return;
-          }
-      }
+
+    // If rotation is valid without wall kicks, apply it
+    if (canRotate(rotatedShape, currentPiece.row, currentPiece.col)) {
+        currentPiece.shape = rotatedShape;
+        return true;
+    }
+
+    // Define wall kick tests
+    const wallKickTests = (currentPiece.type === "tetromino-i")
+        ? [ { x: -2, y: 0 }, { x: 2, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 } ] // I-piece kicks
+        : [ { x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 } ]; // Normal pieces
+
+    // Try wall kicks
+    for (let test of wallKickTests) {
+        if (canRotate(rotatedShape, currentPiece.row + test.y, currentPiece.col + test.x)) {
+            currentPiece.row += test.y;
+            currentPiece.col += test.x;
+            currentPiece.shape = rotatedShape;
+            return true;
+        }
+    }
+
+    // Restore original position if all attempts fail
+    currentPiece.row = originalRow;
+    currentPiece.col = originalCol;
+
+    return false;
 }
+
+
 
 function spawnNewPiece() {
     currentPiece = nextPiece;
