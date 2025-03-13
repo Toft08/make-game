@@ -157,11 +157,6 @@ body {
     z-index: 10;
 }
 
-/* #game-over span {
-    all: unset;
-    display: inline;
-} */
-
 /* Buttons */
 button {
     margin-top: 10px;

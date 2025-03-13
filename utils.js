@@ -28,6 +28,7 @@ const cols = 10;
 let totalClearedRows = 0;
 let gameHasStarted = false;
 
+
 // Checking if tetris piece can move to a new position
 function canMove(nextRow, nextCol) {
     let shape = currentPiece.shape;

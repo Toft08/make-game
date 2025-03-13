@@ -1,11 +1,5 @@
-// Current and next piece variables
-let currentPiece = {
-    shape: tetrominos.shape,
-    type: tetrominos.type,
-};
-
-
-let nextPiece = getRandomPiece();
+let currentPiece;
+let nextPiece;
 
 function moveDown() {
     if (canMove(currentPiece.row + 1, currentPiece.col)) {
@@ -39,7 +33,7 @@ function rotatePiece() {
             return;
         }
     }
-      // Floor kicks: Try shifting the piece upwards
+      // Try shifting the piece upwards
       let floorKicks = [-1, -2]; // Try moving up 1 or 2 rows
       for (let offset of floorKicks) {
           if (canRotate(rotatedShape, currentPiece.row + offset, currentPiece.col)) {
