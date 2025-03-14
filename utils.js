@@ -37,6 +37,8 @@ function canMove(nextRow, nextCol) {
             if (shape[r][c] === 1) {
                 let newR = nextRow + r;
                 let newC = nextCol + c;
+
+                // check if the piece is inside the board or collides with other pieces
                 if (newR >= rows || newC < 0 || newC >= cols || board[newR][newC] !== 0) {
                     return false; // collision detected
                 }

@@ -9,11 +9,10 @@ const tetrominos = {
     Z: { shape: [[1, 1, 0], [0, 1, 1]], type: "tetromino-z" }
 };
 
-// Initialize a "bag" of pieces
 let pieceBag = [];
 
+// Get a random tetromino piece (fisher-yates shuffle)
 function getRandomPiece() {
-    // If the bag is empty, refill it with one of each piece
     if (pieceBag.length === 0) {
         pieceBag = [...Object.keys(tetrominos)];
         // Shuffle the bag

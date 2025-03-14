@@ -1,6 +1,7 @@
 let currentPiece;
 let nextPiece;
 
+
 function moveDown() {
     if (canMove(currentPiece.row + 1, currentPiece.col)) {
         currentPiece.row++;
@@ -83,8 +84,8 @@ function hardDrop() {
     while (canMove(currentPiece.row + 1, currentPiece.col)) {
         currentPiece.row++; // Move down until it collides
     }
-    placePiece(); // Lock piece in place
-    spawnNewPiece(); // Generate new piece
+    placePiece(); 
+    spawnNewPiece(); 
     updateBoard();
 }
 

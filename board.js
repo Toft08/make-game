@@ -9,17 +9,19 @@ for (let i = 0; i < 200; i++) {
 let board = Array.from({ length: rows }, () => Array(cols).fill(0));
 
 function updateBoard() {
-    // Clear only the temporary moving piece positions
+    // copy the board to avoid modifying the original
     let tempBoard = board.map(row => [...row]);
     let shape = currentPiece.shape;
     let ghostRow = getGhostPosition();
 
-    // Draw ghost piece first
+    // Draw ghost piece
     for (let r = 0; r < shape.length; r++) {
         for (let c = 0; c < shape[r].length; c++) {
             if (shape[r][c] === 1) {
                 let newR = ghostRow + r;
                 let newC = currentPiece.col + c;
+
+                // Only update the ghost piece if it's inside the board
                 if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
                     tempBoard[newR][newC] = "ghost";
                 }
@@ -32,6 +34,8 @@ function updateBoard() {
             if (shape[r][c] === 1) {
                 let newR = currentPiece.row + r;
                 let newC = currentPiece.col + c;
+                
+                // Only update the moving piece if it's inside the board
                 if (newR >= 0 && newR < rows && newC >= 0 && newC < cols) {
                     tempBoard[newR][newC] = currentPiece.type; // Only update the moving piece
                 }
@@ -46,10 +50,11 @@ function drawBoard(tempBoard) {
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
+            // Calculate the index of the cell in the 1D array
             let index = r * cols + c;
             let cell = cells[index];
 
-            cell.className = "cell"; // reset class first
+            cell.className = "cell"; // reset the cell classes
 
             if (tempBoard[r][c] !== 0) {
                 if (tempBoard[r][c] === "ghost") {
@@ -57,13 +62,13 @@ function drawBoard(tempBoard) {
                 } else if (typeof tempBoard[r][c] === 'string') {
                     cell.classList.add(tempBoard[r][c]);
                 } else {
-                    cell.classList.add(currentPiece.type); // add class based on tetromino type
+                    cell.classList.add(currentPiece.type); // add class based on tetromino type (fallback)
                 }
             }
         }
     }
 }
-
+// Clear full rows and update the score
 function clearRows() {
     let newBoard = board.filter(row => row.some(cell => cell === 0));
     let rowsCleared = rows - newBoard.length; // count removed rows
@@ -89,7 +94,7 @@ function clearRows() {
     }
     board = newBoard;
 }
-
+// Lock the piece in place
 function placePiece() {
     let shape = currentPiece.shape;
     for (let r = 0; r < shape.length; r++) {
